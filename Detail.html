@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <title>Document</title>
+  </head>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap");
+    :root {
+      --red: #008116;
+    }
+    * {
+      font-family: "Nunito", sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      outline: none;
+      border: none;
+      text-decoration: none;
+      text-transform: capitalize;
+      transition: all 0.2s linear;
+    }
+
+    *::selection {
+      background: var(--red);
+      color: #fff;
+    }
+
+    html {
+      font-size: 62.5%;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      scroll-padding-top: 6rem;
+    }
+
+    body {
+      background: #f7f7f7;
+    }
+
+    /* New: grand layout */
+    .container{
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero{
+      padding-top: 10rem;
+      padding-bottom: 3rem;
+      background: linear-gradient(135deg, rgba(0,129,22,.12), rgba(43,197,112,.06));
+      border-bottom: 1px solid rgba(0,0,0,.08);
+    }
+    .hero h1{
+      font-size: 4rem;
+      color:#0b2b16;
+      letter-spacing: .3px;
+    }
+    .hero p{
+      margin-top: 1rem;
+      font-size: 1.8rem;
+      color:#2c3a31;
+      line-height: 1.7;
+      max-width: 90rem;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.6rem;
+      margin-top: 2rem;
+    }
+    @media(max-width:991px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+    .info-card{
+      background:#fff;
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.06);
+      padding: 1.8rem;
+    }
+    .info-card h3{
+      font-size: 2.1rem;
+      color:#0b2b16;
+      display:flex;
+      align-items:center;
+      gap:.8rem;
+      margin-bottom:.6rem;
+    }
+    .info-card p{
+      font-size: 1.6rem;
+      color:#3d4b42;
+      line-height: 1.65;
+    }
+    .charts-grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.6rem;
+      margin-top: 2.2rem;
+    }
+    @media(max-width:991px){
+      .charts-grid{ grid-template-columns: 1fr; }
+    }
+    .chart{
+      background:#fff;
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.06);
+      padding: 1.2rem;
+    }
+    .chart img{
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      display:block;
+    }
+    /* All buttons properties herer */
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 3rem;
+      border: 0.2rem solid var(--red);
+      color: var(--red);
+      cursor: pointer;
+      font-size: 1.7rem;
+      border-radius: 0.5rem;
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+      margin-top: 1rem;
+    }
+
+    .btn:hover {
+      color: #fff;
+      background-color: #2bc570;
+    }
+    /* All buttons properties herer */
+    /* ------------------------------------------------------------------------------------- */
+    .heading {
+      text-align: center;
+      font-size: 3.5rem;
+      padding: 1rem;
+      color: #666;
+    }
+
+    .heading span {
+      color: var(--red);
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      padding: 2rem 9%;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    }
+
+    header .logo {
+      font-size: 2.5rem;
+      font-weight: bolder;
+      color: #666;
+    }
+
+    header .logo i {
+      padding-right: 0.5rem;
+      color: var(--red);
+    }
+
+    header .navbar a {
+      font-size: 2rem;
+      margin-left: 2rem;
+      color: #666;
+    }
+
+    header .navbar a:hover {
+      color: var(--red);
+    }
+
+    #menu-bar {
+      font-size: 3rem;
+      cursor: pointer;
+      color: rgb(62, 204, 7);
+      border: 0.1rem solid #666;
+      border-radius: 0.3rem;
+      padding: 0.5rem 1.5rem;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      #menu-bar {
+        display: initial;
+      }
+
+      header .navbar {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgb(225, 248, 227);
+        border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+      }
+      header .navbar a:hover {
+        background-color: rgb(127, 224, 136);
+      }
+
+      header .navbar.active {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      }
+
+      header .navbar a {
+        margin: 1.5rem;
+        padding: 1.5rem 140px;
+        display: block;
+        border: 0.2rem solid rgba(0, 0, 0, 0.1);
+        border-left: 0.5rem solid var(--red);
+        /* background:#fff; */
+      }
+    }
+
+    /* home section css */
+
+    section {
+      padding: 2rem 9%;
+    }
+    .home {
+      display: flex;
+      flex-wrap: wrap;
+      min-height: 50vh;
+      align-items: center;
+    }
+    .home .heading {
+      color: #008116;
+      padding-top: 10rem;
+    }
+    .home .content .plants_and_their_info {
+      padding-top: 1.5rem;
+    }
+    .plants_and_their_info .charts img {
+      width: 70rem;
+      margin: 20px 30rem;
+      padding: 0px;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    }
+
+    .home .plants_and_their_info h1 {
+      font-size: 2rem;
+    }
+    .home .plants_and_their_info p span {
+      color: rgb(1, 136, 1);
+      background-color: #d0e6d3;
+    }
+    .home .plants_and_their_info li {
+      font-size: 1.7rem;
+      padding: 0.3rem;
+      margin-left: 4rem;
+    }
+    .home .plants_and_their_info h2 {
+      font-size: 2.5rem;
+    }
+    .home .content h3 {
+      font-size: 5rem;
+      color: rgb(109, 109, 109);
+    }
+
+    .home .content p {
+      font-size: 1.7rem;
+      color: rgb(41, 41, 41);
+      padding: 1rem 0;
+    }
+    .home .content p:hover {
+      font-weight: bolder;
+    }
+  </style>
+  <body>
+    <header>
+      <a href="#" class="logo"><i class="fas fa-seedling"></i>Ferti</a>
+
+      <div id="menu-bar" class="fas fa-bars"></div>
+
+      <nav class="navbar">
+        <a href="{{ url_for('home') }}">home</a>
+        <a href="{{ url_for('Model1') }}">Model</a>
+        <a href="{{ url_for('Water') }}">Water</a>
+      </nav>
+    </header>
+    <!-- home section starts  -->
+
+    <section class="hero">
+      <div class="container">
+        <h1>Input Guide & Project Details</h1>
+        <p>
+          Understand what each input means and why it matters. This helps you enter accurate values and interpret the recommendation with confidence.
+        </p>
+      </div>
+    </section>
+
+    <section class="home" id="home">
+      <div class="container">
+        <div class="grid">
+          <div class="info-card">
+            <h3><i class="fas fa-leaf"></i> Nitrogen (N)</h3>
+            <p>Nitrogen supports green growth and chlorophyll formation. Low N often shows as pale/yellow leaves.</p>
+          </div>
+          <div class="info-card">
+            <h3><i class="fas fa-bolt"></i> Phosphorus (P)</h3>
+            <p>Phosphorus helps energy transfer and root development. It’s important for flowering and early growth.</p>
+          </div>
+          <div class="info-card">
+            <h3><i class="fas fa-seedling"></i> Potassium (K)</h3>
+            <p>Potassium improves stress tolerance, grain filling and overall crop strength.</p>
+          </div>
+          <div class="info-card">
+            <h3><i class="fas fa-thermometer-half"></i> Temperature</h3>
+            <p>High temperature affects photosynthesis and respiration. It can change nutrient uptake and water loss.</p>
+          </div>
+          <div class="info-card">
+            <h3><i class="fas fa-tint"></i> Humidity</h3>
+            <p>Very humid weather can increase disease risk and affect fertilizer timing.</p>
+          </div>
+          <div class="info-card">
+            <h3><i class="fas fa-water"></i> Soil Moisture</h3>
+            <p>Moisture affects nutrient movement and leaching. Too much moisture can wash fertilizer away.</p>
+          </div>
+          <div class="info-card">
+            <h3><i class="fas fa-mountain"></i> Soil Type</h3>
+            <p>Sandy drains quickly, clay holds water, loamy is balanced. Soil type changes how fertilizer behaves.</p>
+          </div>
+          <div class="info-card">
+            <h3><i class="fas fa-tag"></i> Output Label</h3>
+            <p>The model predicts one fertilizer category (for example: Urea, DAP, NPK blends, etc.).</p>
+          </div>
+          <div class="info-card">
+            <h3><i class="fas fa-check-circle"></i> Tip</h3>
+            <p>Use Auto Fetch for weather inputs, and enter N–P–K from your soil test for best accuracy.</p>
+          </div>
+        </div>
+
+        <div class="charts-grid">
+          <div class="chart">
+            <img src="{{ url_for('static', filename='images/o1.png') }}" alt="Chart 1" />
+          </div>
+          <div class="chart">
+            <img src="{{ url_for('static', filename='images/o2.png') }}" alt="Chart 2" />
+          </div>
+          <div class="chart">
+            <img src="{{ url_for('static', filename='images/o3.png') }}" alt="Chart 3" />
+          </div>
+          <div class="chart">
+            <img src="{{ url_for('static', filename='images/o4.png') }}" alt="Chart 4" />
+          </div>
+        </div>
+      </div>
+        <!-- <div class="plants_and_their_info">
+          <h2>Care Instructions for Live Plants to Keep Them Alive</h2>
+          <p>
+            Often people misunderstand the concept of less care of plants with
+            zero or no care. The usual thoughts of buying any green plant and
+            leaving it unattended lead to its poor health and further
+            degradation from the tip down to hidden deep roots. It's true that
+            unlike regular plants, these require less maintenance and care,
+            however, what distinguishes them from the other plants are just a
+            few tips, and these can bloom right away. Thus,<span
+              >By following these quick and easy instructions, you can save your
+              little green buddy and liven your indoors and outdoors at the same
+              time..</span
+            >
+          </p>
+          <ol>
+            <li>
+              Along with a sheltered location, houseplants require partial
+              sunlight.
+            </li>
+            <li>Spray water evenly, instead of pouring a mugful in one go.</li>
+            <li>
+              Check the soil mixture before watering. Prefer a well-drained soil
+              for proper aeration and better growth.
+            </li>
+            <li>Require manuring every two months.</li>
+            <li>
+              Regular pruning is always a good idea when it comes to houseplants
+            </li>
+            <li>
+              Water them with ice cubes, the slow release of water will keep
+              your plants hydrated and will help you avoid the accidental
+              gushing of water.
+            </li>
+            <li>
+              Soil drying out quickly, roots growing through the drainage holes
+              are great signs to know that your plant is ready to be
+              transplanted.
+            </li>
+            <li>
+              Wipe the dull-looking leaves with warm milk or mayonnaise for
+              extra shine.
+            </li>
+            <li>Enrich the plant with an organic water-soluble fertilizer.</li>
+            <li>Allow the surface to dry out before watering it again.</li>
+            <li>Avoid leaving the plant sitting in water.</li>
+            <li>
+              Boost humidity by placing a tray of pebbles and warm water
+              underneath.
+            </li>
+            <li>Protect the plant from cold, drying winds in winter.</li>
+            <li>Trimming the tips of the plant can boost new growth.</li>
+            <li>Divide the plant every four years to encourage new growth.</li>
+            <li>
+              Hydrate your plants with a nutrient-filled liquid such as
+              vegetable stock or the leftover boiled eggs water.
+            </li>
+            <li>Add a layer of gravel before adding soil and the plant</li>
+            <li>
+              When you first receive your new sapling, shake off excess water,
+              and set them in a place to dry off.
+            </li>
+            <li>
+              Solve all the pest problems with a few drops of organic Neem oil.
+            </li>
+            <li>Reposition your plant's location every now and then.</li>
+          </ol>
+        </div> -->
+    </section>
+    <section class="footer" style="background-color: rgb(255, 255, 255)">
+      <h1>Fertilizer Recommendation System – Input & Feature Guide</h1>
+    </section>
+    <script>
+      let menu = document.querySelector("#menu-bar");
+      let navbar = document.querySelector(".navbar");
+
+      menu.onclick = () => {
+        menu.classList.toggle("fa-times");
+        navbar.classList.toggle("active");
+      };
+      window.onscroll = () => {
+        menu.classList.remove("fa-times");
+        navbar.classList.remove("active");
+
+        if (window.scrollY > 60) {
+          document.querySelector("#scroll-top").classList.add("active");
+        } else {
+          document.querySelector("#scroll-top").classList.remove("active");
+        }
+      };
+    </script>
+  </body>
+</html>
